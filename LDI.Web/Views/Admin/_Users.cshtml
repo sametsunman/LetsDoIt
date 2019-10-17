@@ -1,0 +1,170 @@
+﻿@model IEnumerable<LDI.Model.User>
+
+    <p>
+        <a href="#" class="btn btn-success"  onclick="javascript:$('#divLoad').load('/Admin/NewUser');" ><i class="fa fa-user-plus"></i>Yeni Kullanıcı</a>
+    </p>
+<table class="display table table-condensed table-hover table-striped table-bordered dataTable" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfileImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserRoles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastLogin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                İşlemler
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMail)
+            </td>
+            <td>
+                ******
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                <img src="@item.ProfileImage" height="60" class="img-thumbnail" />
+            </td>
+            <td>
+                @await Component.InvokeAsync("UserRole", new { IDx = item.ID })
+            </td>
+            <td>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="switch" asp-for="@item.IsActive" disabled>
+                    <label class="custom-control-label" for="switch"></label>
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastLogin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                <a href="#" class="btn-sm btn-info fa fa-user-secret" title="Rol Değiştir" data-toggle="modal" data-target="#roleModal" onclick="setRoleModal(@item.ID)" />
+                <a href="#" class="btn-sm btn-warning fa fa-user-circle" title="Kullanıcı Düzenle" onclick="javascript:$('#divLoad').load('/Admin/EditUser?userId=@item.ID');" />
+                <a href="#" class="btn-sm btn-danger fa fa-user-times" title="Kullanıcıyı Sil" onclick="javascript:$('#divLoad').load('/Admin/DeleteUser?userId=@item.ID');" />
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Kullanıcı Rolleri</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="ml-4">
+                    <div class="form-group">
+                        <input type="checkbox" class="custom-control-input" id="roleYonetici">
+                        <label class="custom-control-label" for="roleYonetici">Yönetici</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" class="custom-control-input" id="roleKanalSahibi">
+                        <label class="custom-control-label" for="roleKanalSahibi">Kanal Sahibi</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" class="custom-control-input" id="roleKullanici">
+                        <label class="custom-control-label" for="roleKullanici">Kullanıcı</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="roleSave()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function setRoleModal(userID) {
+
+        $.ajax({
+            url: 'http://localhost:62862/User/GetRoles/' + userID,
+            method: 'GET',
+            headers: {
+                  'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYXNza2EiLCJqdGkiOiJkYmZlNTRmNC03NmE3LTQ5MDEtODZjYy01OWJhZTY2MWIwMjciLCJuYmYiOjE1NjAyNTQ4ODUsImV4cCI6MTU2Mjg0Njg4NSwiaXNzIjoiYXNkIiwiYXVkIjoiYXNkIn0.I_B_WrNgUEpEsc2_vysyPvBU3sjB6freXu2ph-irC60',                    
+                  'Content-Type' : 'application/json'
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                console.log(JSON.stringify(data));
+
+            }
+        });
+
+
+    }
+
+    function roleSave() {
+
+        var roleYonetici = $('#roleYonetici').is(':checked');
+        var roleKanalSahibi = $('#roleKanalSahibi').is(':checked');
+        var roleKullanici = $('#roleKullanici').is(':checked');
+
+
+        alert(roleYonetici+' '+roleKanalSahibi);
+    }
+
+
+</script>

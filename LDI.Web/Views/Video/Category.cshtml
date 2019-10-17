@@ -1,0 +1,45 @@
+﻿@model ICollection<LDI.Model.Content>;
+
+
+
+<div class="breadcumb-area">
+    <!-- Breadcumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Kategoriler</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.PageName</li>
+        </ol>
+    </nav>
+</div>
+
+
+
+<div class="clever-catagory bg-img d-flex align-items-center justify-content-center p-3" style="background-image: url(/img/bg-img/bg2.jpg);">
+    <h3>@ViewBag.PageName</h3>
+</div>
+
+
+<section class="popular-courses-area section-padding-100">
+    <div class="container">
+        <div class="row">
+
+            @{
+                int ID = Convert.ToInt32(Context.Request.Query["IDx"]); 
+
+             }
+
+            @await Component.InvokeAsync("Content", new { IDx = ID, type = "category" });
+
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="load-more text-center wow fadeInUp" data-wow-delay="1000ms" style="visibility: hidden; animation-delay: 1000ms; animation-name: none;">
+                    <a href="#" class="btn clever-btn btn-2">Load More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

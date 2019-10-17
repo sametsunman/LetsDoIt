@@ -1,0 +1,22 @@
+﻿@model List<LDI.Model.Role>;
+
+
+
+
+@foreach (var role in Model)
+{
+
+    if (role.ID == 3)
+    {
+        <span class="badge badge-danger">@role.Name</span>
+    }
+    else if (role.ID == 2)
+    {
+        <span class="badge badge-warning">@role.Name</span>
+    }
+    else
+    {
+        <span class="badge badge-info">@role.Name</span>
+    }
+
+}

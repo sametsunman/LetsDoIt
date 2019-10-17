@@ -1,0 +1,63 @@
+﻿@model ICollection<LDI.Model.Channel>;
+
+
+
+<div class="breadcumb-area">
+    <!-- Breadcumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Kanallar</a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+
+
+<div class="clever-catagory bg-img d-flex align-items-center justify-content-center p-3" style="background-image: url(/img/bg-img/bg2.jpg);">
+    <h3>Popüler Kanallar</h3>
+
+
+</div>
+
+
+<section class="popular-courses-area section-padding-100">
+    <div class="container">
+        <div class="row">
+
+
+
+            @foreach (var channel in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Content -->
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms" style="visibility: visible; animation-delay: 250ms; animation-name: fadeInUp;">
+                        <div class="course-content">
+                            <div class="row">
+                                <img src="/img/bg-img/c1.jpg" class="img-rounded" alt="">
+                                <div>
+                                    <h3>English Grammar</h3>
+                                    <div class="meta d-flex align-items-center justify-content-center">
+                                        <a href="#">Sarah Parker</a>
+                                    </div>
+                                    <div class="course-fee h-100">
+                                        <a href="/video/channel?IDx=@channel.ID" class="free">İzle</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="load-more text-center wow fadeInUp" data-wow-delay="1000ms" style="visibility: hidden; animation-delay: 1000ms; animation-name: none;">
+                    <a href="#" class="btn clever-btn btn-2">Load More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

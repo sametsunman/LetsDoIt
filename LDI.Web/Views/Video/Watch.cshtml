@@ -1,0 +1,15 @@
+﻿@model LDI.Web.Models.ContentViewModel;
+
+<div class="breadcumb-area">
+    <!-- Breadcumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+        </ol>
+    </nav>
+</div>
+
+
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="@Model.Path" allowfullscreen></iframe>
+</div>

@@ -1,0 +1,16 @@
+﻿@model  Int32;
+@using LDI.DataAccess;
+@using LDI.BusinessLogic.Abstract;
+@using LDI.BusinessLogic.Concrete;
+@using LDI.Model;
+
+
+@{
+
+    Context db = new Context();
+    IUnitOfWork service = new UnitOfWork(db);
+    Channel channel = service.Channel.Get(x => x.ID == Model);
+    @channel.Name
+
+}
+

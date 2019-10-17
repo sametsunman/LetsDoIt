@@ -1,0 +1,85 @@
+﻿@model LDI.Web.Models.AccountViewModel
+
+<div class="container p-5  d-flex justify-content-center">
+    <div class="col-12 col-lg-6 m-5">
+        <div class="contact-form">
+            <h4>Kayıt Ol</h4>
+
+            <form method="post" asp-controller="Account" asp-action="Register" role="form">
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i style="font-size:larger" class="fa fa-user"></i>
+                        </div>
+                        <input type="text" asp-for="UserName" class="form-control" placeholder="Kullanıcı Adı Giriniz" />
+                        <span asp-for="UserName" class="text-danger" />
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i style="font-size:larger" class="fa fa-user"></i>
+                        </div>
+                        <input type="text" asp-for="FirstName" class="form-control" placeholder="İsim Giriniz" />
+                        <span asp-for="FirstName" class="text-danger" />
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i style="font-size:larger" class="fa fa-user"></i>
+                        </div>
+                        <input type="text" asp-for="LastName" class="form-control" placeholder="Soyisim Giriniz" />
+                        <span asp-for="LastName" class="text-danger" />
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <input type="email" asp-for="Email" class="form-control" placeholder="E-Posta Giriniz" />
+                        <span asp-for="Email" class="text-danger" />
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i style="font-size:larger" class="fa fa-lock"></i>
+                        </div>
+                        <input type="password" asp-for="Password" class="form-control" placeholder="Şifre Giriniz" />
+                        <span asp-for="Password" class="text-danger" />
+                    </div>
+
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i style="font-size:larger" class="fa fa-lock"></i>
+                        </div>
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Şifreyi Tekrar Giriniz" />
+                        <span asp-for="ConfirmPassword" class="text-danger" />
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-birthday-cake"></i>
+                        </div>
+                        <input type="date" asp-for="DateOfBirth" class="form-control" placeholder="Kullanıcı Adı Giriniz" />
+                        <span asp-for="DateOfBirth" class="text-danger" />
+                    </div>
+
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-venus-mars"></i>
+                        </div>
+                        <div class="form-check form-control">
+                            <input asp-for="Gender" class="form-check-input" value="Erkek" type="radio" checked />
+                            <label class="form-check-label" style="color:darkgrey">Erkek</label>
+                            <input asp-for="Gender" class="form-check-input" value="Kadın" type="radio" />
+                            <label class="form-check-label" style="color:darkgrey">Kadın</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <input type="submit" class="btn clever-btn w-100" value="Kayıt Ol">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

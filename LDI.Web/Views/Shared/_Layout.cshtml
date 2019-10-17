@@ -1,0 +1,235 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Security.Claims
+@using LDI.DataAccess;
+@using LDI.DataAccess.Concrete;
+@using LDI.Model;
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Asnus Video Eğitim</title>
+
+
+    <link rel="icon" href="/img/core-img/favicon.ico">
+
+
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")">
+    @RenderSection("Style", false)
+
+</head>
+
+<body>
+
+
+
+
+    <header class="header-area">
+
+
+        <div class="top-header-area d-flex justify-content-between align-items-center">
+
+            <div class="contact-info">
+                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
+                <a href="#"><span>Email:</span> info@clever.com</a>
+            </div>
+
+            <div class="follow-us">
+                <span>Follow us</span>
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+
+        <div id="sticky-wrapper" class="sticky-wrapper" style="height: 80px;">
+            <div class="clever-main-menu" style="">
+                <div class="classy-nav-container light left breakpoint-on">
+
+                    <nav class="classy-navbar justify-content-between" id="cleverNav">
+
+
+                        <a class="nav-brand" href="index.html"><img src="/img/core-img/logo.png" alt=""></a>
+
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+
+                        <div class="classy-menu">
+
+
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="/">Anasayfa</a></li>
+                                    <li class="cn-dropdown-item has-down">
+                                        <a href="#">Kategoriler</a>
+                                        <ul class="dropdown">
+
+                                            @{
+                                                Context db = new Context();
+                                                CategoryRepo repo = new CategoryRepo(db);
+                                                ICollection<Category> list = repo.GetList();
+
+                                                foreach (var item in list)
+                                                {
+
+                                                    <li><a asp-controller="Video" asp-action="Category" asp-route-IDx="@item.ID">@item.Name</a></li>
+
+                                                }
+
+                                            }
+
+                                        </ul>
+                                        <span class="dd-trigger"></span>
+                                    </li>
+                                    <li><a asp-controller="Channel" asp-action="Index">Kanallar</a></li>
+                                    <li><a asp-controller="Home" asp-action="Contact">İletişim</a></li>
+                                    @{
+                                        if (User.Claims.FirstOrDefault() != null)
+                                        {
+                                            if (User.Claims.FirstOrDefault().Value == "Yönetici")
+                                            {
+                                                <li><a asp-controller="Admin" asp-action="Index">Yönetici Paneli</a></li>
+                                            }
+                                            else if (User.Claims.FirstOrDefault().Value == "Kanal Sahibi")
+                                            {
+                                                <li><a asp-controller="Channel" asp-action="Panel">Kanal Yönetimi</a></li>
+                                            }
+                                        }
+                                    }
+
+                                </ul>
+                                       <div class="search-area">
+                                    <search-box />
+                                </div>
+
+
+                                @{
+
+                                    if (@User.Identity.Name != null)
+                                    {
+                                        <div class="login-state d-flex align-items-center">
+                                            <div class="user-name mr-30">
+                                                <div class="dropdown">
+                                                    <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@User.Identity.Name</a>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
+                                                        <a class="dropdown-item" href="#">Profile</a>
+                                                        <a class="dropdown-item" href="#">Account Info</a>
+                                                        <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Oturumu Kapat</a>
+                                                    </div>
+                                                </div>
+                                                <span class="d-flex justify-content-end mr-3" style="font-size:smaller;color:dimgray">(@User.Claims.FirstOrDefault().Value)</span>
+                                            </div>
+                                            <div class="userthumb">
+                                                @inject IHttpContextAccessor accessor
+                                                @{
+                                                    User currentUser = accessor.HttpContext.Session.GetObject<User>("currentUser");
+
+                                                    if (currentUser != null)
+                                                    {
+                                                        <img src="@currentUser.ProfileImage" alt="" />
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="register-login-area">
+                                            <a asp-controller="Account" asp-action="Register" class="btn">Kayıt Ol</a>
+                                            <a asp-controller="Account" asp-action="Login" class="btn active">Oturum Aç</a>
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+    @RenderBody()
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer-area">
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer-logo">
+                            <a href="index.html"><img src="/img/core-img/logo2.png" alt=""></a>
+                        </div>
+                        <p>
+                            <a href="#">
+
+                                Copyright ©
+                                2019 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                            </a><a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+            <div class="contact-info">
+                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
+                <a href="#"><span>Email:</span> info@clever.com</a>
+            </div>
+            <div class="follow-us">
+                <span>Follow us</span>
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+
+    <script src="/js/bootstrap/popper.min.js"></script>
+
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+
+    <script src="/js/plugins/plugins.js"></script>
+
+    <script src="/js/active.js"></script><a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: none;"><i class="fa fa-angle-up"></i></a>
+
+    @RenderSection("Script", false)
+
+
+</body>
+</html>

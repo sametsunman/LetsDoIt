@@ -1,0 +1,104 @@
+﻿@model List<LDI.Model.Content>;
+
+
+
+
+@foreach (var content in Model)
+{
+    <!-- Single Popular Course -->
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms" style="visibility: visible; animation-delay: 250ms; animation-name: fadeInUp;">
+            <img src="/img/bg-img/c1.jpg" alt="">
+            <!-- Course Content -->
+            <div class="course-content">
+                <h4>@content.Title</h4>
+                <div class="meta d-flex align-items-center">
+
+                    <a href="#">@await Html.PartialAsync("_ChannelName",content.ChannelID)</a>
+                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                    <a href="#">@ViewBag.PageName</a>
+                </div>
+                <p>@content.Description</p>
+
+                <div class="rating">
+
+                    @{
+
+                        int f = Convert.ToInt32(content.Rating);
+
+                        bool m = (content.Rating % 1) > 0 ? true : false;
+
+
+                        if (m)
+                        {
+                            for (int i = 1; i < f; i++)
+                            {
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            }
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            for (int i = 0; i < 5 - f; i++)
+                            {
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < f; i++)
+                            {
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            }
+                            for (int i = 0; i < 5 - f; i++)
+                            {
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            }
+
+                        }
+
+                    }
+
+                </div>
+            </div>
+            <!-- Seat Rating Fee -->
+            <div class="seat-rating-fee d-flex justify-content-between">
+                <div class="seat-rating h-100 d-flex align-items-center">
+
+                    <div class="date">
+                        @{
+                            var date = DateTime.Now - content.CreateTime;
+                            string time = "";
+
+                            if (date.TotalMinutes < 60)
+                            {
+                                time = date.TotalMinutes.ToString("0") + " dakika önce";
+                            }
+                            else if (date.TotalHours < 24)
+                            {
+                                time = date.TotalHours.ToString("0") + " saat önce";
+                            }
+                            else if (date.TotalDays < 31)
+                            {
+                                time = date.TotalDays.ToString("0") + " gün önce";
+                            }
+                            else if (date.TotalDays < 365)
+                            {
+                                time = (date.TotalDays / 30).ToString("0") + " ay önce";
+                            }
+                            else
+                            {
+                                time = (date.TotalDays / 365).ToString("0") + " yıl önce";
+                            }
+                        }
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> @time
+                    </div>
+                    <div class="seat">
+                        <i class="fa fa-user" aria-hidden="true"></i> @content.Views
+                    </div>
+                </div>
+                <div class="course-fee h-100">
+                    <a href="/video/watch?=@content.ID" class="free">İzle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

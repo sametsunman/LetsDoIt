@@ -1,0 +1,90 @@
+﻿<div class="breadcumb-area">
+    <!-- Breadcumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#" onclick="javascript:location.reload()" >Yönetici Paneli</a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2  bd-sidebar">
+            <nav class="navbar-vertical navbar-light navbar-glass m-3 ">
+                <div class="navbar-collapse collapse show" id="navbarVerticalCollapse" style="">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-indicator" href="#" onclick="Change('Categories')" role="button">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon fa fa-book"></span><span>Kategoriler</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-indicator" href="#" onclick="Change('Channels')" role="button">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon fa fa-tv"></span><span>Kanallar</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-indicator" href="#" onclick="Change('Users')" role="button">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon fa fa-users"></span><span>Kullanıcılar</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-indicator" href="#" onclick="Change('Roles')" role="button">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon fa fa-user-secret"></span><span>Roller</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-indicator" href="#" onclick="Change('Contents')" role="button">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon fa fa-video-camera"></span><span>İçerikler</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-indicator" href="#layouts" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="layouts">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon fa fa-toggle-on"></span><span>Diğer İşlemler</span></div>
+                            </a>
+                            <ul class="nav collapse" id="layouts" data-parent="#navbarVerticalCollapse">
+                                <li class="nav-item"><a class="nav-link" href="#" onclick="Change()">Diğer</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <br /> <br /> <br /> <br /> <br /> <br />
+        </div>
+
+        <div class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+            <div id="divLoad">
+                Nabeeer??????
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section Style{
+
+    <link href="@Url.Content("~/css/svg.css")" rel="stylesheet">
+    <link href="@Url.Content("~/css/theme.css")" rel="stylesheet">
+
+}
+
+@section Script{
+
+    <script src="@Url.Content("~/js/theme.js")"></script>
+    <script>
+
+    function Change(page) {
+        $("#divLoad").load(/Admin/+page);
+    }
+
+    </script>
+
+}
+
